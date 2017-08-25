@@ -34,10 +34,10 @@ public class Main {
             Class.forName("org.sqlite.JDBC");
             System.out.println("Sterownik załadowany");
 
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:F:\\words.sqlite");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:words.sqlite");
             String query = "INSERT INTO Words(Word, Score) VALUES(?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            List<WordEntry> wordEntryList = getListWordsFromFile("F:\\slowa.txt");
+            List<WordEntry> wordEntryList = getListWordsFromFile("slowa.txt");
 
             for (int i = 0; i < wordEntryList.size(); i++) {
                 preparedStatement.setString(1, wordEntryList.get(i).getWord());
