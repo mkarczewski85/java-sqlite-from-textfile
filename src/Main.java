@@ -14,14 +14,14 @@ public class Main {
 
         List<WordEntry> wordEntryList = new ArrayList<>();
 
-        try (BufferedReader bReader = Files.newBufferedReader(Paths.get(filepath))){
+        try (BufferedReader bReader = Files.newBufferedReader(Paths.get(filepath))) {
 
             String wordLine = null;
             while ((wordLine = bReader.readLine()) != null) {
                 wordEntryList.add(new WordEntry(wordLine, PointsCalc.calcFinalScore(wordLine)));
             }
 
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Bład odczytu pliku");
             e.printStackTrace();
         }
@@ -35,17 +35,15 @@ public class Main {
             System.out.println("Sterownik załadowany");
 
             Connection connection = DriverManager.getConnection("jdbc:sqlite:F:\\words.sqlite");
-            String query = "INSERT INTO WORDS VALUES(?, ?)";
+            String query = "INSERT INTO Words(Word, Score) VALUES(?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             List<WordEntry> wordEntryList = getListWordsFromFile("F:\\slowa.txt");
 
-            for (int i = 0; i < wordEntryList.size(); i++){
+            for (int i = 0; i < wordEntryList.size(); i++) {
                 preparedStatement.setString(1, wordEntryList.get(i).getWord());
                 preparedStatement.setInt(2, wordEntryList.get(i).getScore());
-
                 preparedStatement.executeUpdate();
             }
-
 
         } catch (Exception e) {
             e.printStackTrace();
