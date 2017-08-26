@@ -32,21 +32,40 @@ public class Main {
 
         try {
             Class.forName("org.sqlite.JDBC");
-            System.out.println("Sterownik załadowany");
+            System.out.println("+-------------------------------------------------+");
+            System.out.println("|    Sterownik JDBC został załadowany             |");
+            System.out.println("+-------------------------------------------------+");
 
             Connection connection = DriverManager.getConnection("jdbc:sqlite:.\\words.sqlite");
             String query = "INSERT INTO Words(Word, Score) VALUES(?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             List<WordEntry> wordEntryList = getListWordsFromFile("slowa.txt");
+            System.out.println("+-------------------------------------------------+");
+            System.out.println("|    Treść pliku przygotowana do zapisu           |");
+            System.out.println("+-------------------------------------------------+");
 
             for (int i = 0; i < wordEntryList.size(); i++) {
                 preparedStatement.setString(1, wordEntryList.get(i).getWord());
                 preparedStatement.setInt(2, wordEntryList.get(i).getScore());
                 preparedStatement.executeUpdate();
+                System.out.println("+-------------------------------------------------+");
+                System.out.println("|    Linijka nr " + (i+1) + " zapisana w bazie    |");
+                System.out.println("+-------------------------------------------------+");
             }
 
+            System.out.println("+-------------------------------------------------+");
+            System.out.println("|    Baza SQLite została wypełniona               |");
+            System.out.println("+-------------------------------------------------+");
+
         } catch (Exception e) {
+            System.out.println("+-------------------------------------------------+");
+            System.out.println("|    Wystąpił błąd zapisu                         |");
+            System.out.println("+-------------------------------------------------+");
             e.printStackTrace();
+        } finally {
+            System.out.println("+-------------------------------------------------+");
+            System.out.println("|    Program został zakończony                    |");
+            System.out.println("+-------------------------------------------------+");
         }
 
     }
