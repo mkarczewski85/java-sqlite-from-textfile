@@ -34,7 +34,7 @@ public class Main {
             Class.forName("org.sqlite.JDBC");
             System.out.println("Sterownik załadowany");
 
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:words.sqlite");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:.\\words.sqlite");
             String query = "INSERT INTO Words(Word, Score) VALUES(?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             List<WordEntry> wordEntryList = getListWordsFromFile("slowa.txt");
